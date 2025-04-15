@@ -2,6 +2,7 @@ package api_gateway
 
 import (
 	"inventory/api-gateway/handlers"
+	"inventory/api-gateway/middleware"
 	"log"
 	"os"
 	"runtime/trace"

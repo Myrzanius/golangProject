@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"inventory/api-gateway/config"
 	"log"
 	"net/http"
 	"net/http/httputil"
@@ -11,7 +12,8 @@ import (
 
 func ProxyRequestToInventory(c *gin.Context) {
 	proxy := createProxy(config.InventoryServiceURL)
-	if err := proxy.ServeHTTP(c.Writer, c.Request); err != nil {
+	err := proxy.ServeHTTP(c.Writer, c.Request)
+	if err != nil {
 		HandleError(c, errors.New("Error while proxying to Inventory Service"), http.StatusInternalServerError)
 		return
 	}
@@ -19,7 +21,8 @@ func ProxyRequestToInventory(c *gin.Context) {
 
 func ProxyRequestToOrder(c *gin.Context) {
 	proxy := createProxy(config.OrderServiceURL)
-	if err := proxy.ServeHTTP(c.Writer, c.Request); err != nil {
+	err := proxy.ServeHTTP(c.Writer, c.Request)
+	if err != nil {
 		HandleError(c, errors.New("Error while proxying to Order Service"), http.StatusInternalServerError)
 		return
 	}
